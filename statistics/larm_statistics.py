@@ -270,7 +270,16 @@ for record in cur:
                 out["Kanal"] = "Ukendt"
         except:
             out["Kanal"] = "Ukendt"
-
+            
+    # some values are unicode but not ascii
+    # convert all strings to utf8
+    for k,v in out.items():
+        try:
+            v=v.encode('utf8')
+            out[k] = v
+        except:
+            pass
+        
     result_dict_writer.writerow(out)
 
 conn.close()
